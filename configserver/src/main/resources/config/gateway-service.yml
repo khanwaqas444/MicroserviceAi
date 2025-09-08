@@ -10,7 +10,6 @@ spring:
         jwt:
           jwk-set-uri: http://localhost:8181/realms/fitness-app/protocol/openid-connect/certs
 
-
   cloud:
     gateway:
       server:
@@ -20,12 +19,10 @@ spring:
               uri: lb://USER-SERVICE
               predicates:
                 - Path=/api/users/**
-
             - id: activity-service
               uri: lb://ACTIVITY-SERVICE
               predicates:
                 - Path=/api/activities/**
-
             - id: ai-service
               uri: lb://AI-SERVICE
               predicates:

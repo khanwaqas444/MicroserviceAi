@@ -2,11 +2,12 @@ package com.fitness.gateway;
 
 
 import com.fitness.gateway.user.RegisterRequest;
+import com.fitness.gateway.user.UserService;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.server.ServerHttpRequest;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
@@ -54,7 +55,7 @@ public class KeycloakUserSyncFilter implements WebFilter {
                         return chain.filter(exchange.mutate().request(mutatedRequest).build());
                     }));
         }
-        return null;
+        return chain.filter(exchange);
     }
 
     private RegisterRequest getUserDetails(String token) {
@@ -77,4 +78,3 @@ public class KeycloakUserSyncFilter implements WebFilter {
         }
     }
     }
-}
